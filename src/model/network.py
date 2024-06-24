@@ -5,7 +5,7 @@ class Network:
     def __init__(self, ip: int, mask: int):
         self.validate_network(ip, mask)
 
-        self.ip = ip ^ mask
+        self.ip = ip & mask
         self.mask = mask
 
     def validate_network(self, ip, mask):
