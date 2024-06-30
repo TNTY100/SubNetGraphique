@@ -46,6 +46,17 @@ class Network:
     def __str__(self):
         return f"Netowrk{{ip: {self.get_str_ip()}, mask: {self.get_str_mask()}}}"
 
+    def split(self):
+        new_mask = (self.mask >> 1) | 0x80_00_00_00
+        new_ip = self.ip + (new_mask ^ self.mask)
+        return (Network(ip=self.ip, mask=new_mask),
+                Network(ip=new_ip, mask=new_mask))
+
+    def __eq__(self, other):
+        return (isinstance(other, Network)
+                and self.ip == other.ip
+                and self.mask == other.mask)
+
 
 def network_from_str(ip: str, mask: str) -> Network:
     return Network(ipv4_to_int(ip), ipv4_to_int(mask))

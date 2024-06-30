@@ -44,5 +44,22 @@ class NetworkTest(unittest.TestCase):
         self.assertEqual(0, net.get_int_mask())
 
 
+class NetworkOperationTest(unittest.TestCase):
+    def test_split_normal_mask_all0(self):
+        nets = network_from_str("192.168.1.0", "255.255.255.0").split()
+        self.assertEqual(network_from_str("192.168.1.0", "255.255.255.128"),
+                         nets[0])
+        self.assertEqual(network_from_str("192.168.1.128", "255.255.255.128"),
+                         nets[1])
+
+    def test__eq__normal1(self):
+        self.assertTrue(network_from_str("192.168.1.0", "0.0.0.0")
+                        == network_from_str("192.168.1.0", "0.0.0.0"))
+
+    def test__ne__normal1(self):
+        self.assertTrue(network_from_str("192.168.1.0", "128.0.0.0")
+                        != network_from_str("192.168.1.0", "0.0.0.0"))
+
+
 if __name__ == '__main__':
     unittest.main()
