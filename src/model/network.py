@@ -18,7 +18,7 @@ class Network:
         mask_check = mask
         count = 1
         # Défiler le nombre jusqu'au premier 1.
-        while mask_check & 1 == 0:
+        while mask_check & 1 == 0 and count < IP_LENGTH:
             mask_check = mask_check >> 1
             count += 1
         # S'assure qu'il n'y a plus de 0 à travers les 1

@@ -39,6 +39,10 @@ class NetworkTest(unittest.TestCase):
         net = network_from_str("192.168.1.0", "255.255.255.0")
         self.assertEqual("255.255.255.0", net.get_str_mask())
 
+    def test_network_mask_int_normal2(self):
+        net = network_from_str("192.168.1.0", "0.0.0.0")
+        self.assertEqual(0, net.get_int_mask())
+
 
 if __name__ == '__main__':
     unittest.main()
